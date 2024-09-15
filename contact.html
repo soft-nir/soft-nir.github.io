@@ -38,29 +38,66 @@
                 <h1 class="hero-tag contact-hero animated fadeInLeft">Let's Get In Touch.</h1>
                 <p class="hero-des contact-des animated fadeIn delay-1s">Want to discuss a project, an idea, an
                     opportunity? Just fill up this
-                    form or write me an email <a target="_blank" href="mailto:ishandeveloper@outlook.com"><i
+                    form or write me an email <a target="_blank" href="mailto:nir71.ni@yahoo.com"><i
                             class="fas fa-envelope"></i></a>
                 </p>
-                <form class="input-container" method="POST"
-                    action="https://script.google.com/macros/s/AKfycbzrbM264SUBftv-dZgEfclE29woK3020prejQZKHCw4D_t9GX1nzdtCJqVS1FgExxqi/exec">
-                    <div class="form-group"><label for="name">Name</label><input type="text" name="name" id="name"
-                            class="form-control" required=""></div>
-                    <div class="form-group"><label for="email">Email Address</label><input type="email" name="email"
-                            id="email" class="form-control" required=""></div>
-                    <div class="form-group"><label for="message">Your Message</label><textarea rows="3" id="message"
-                            name="message" class="form-control" required=""></textarea></div>
-                    <button type="submit" class="submit animated bounce delay-4s learn-btn">
-                        Send Message
-                    </button>
-                    <div style="display:none;" id="thankyou_message">
-                        <h2>
-                            <em>Thanks</em> for contacting us!
-                            We will get back to you soon!
-                        </h2>
+                <form class="input-container" id="contactForm">
+                    <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" name="name" id="name" class="form-control" required="">
                     </div>
-                </form>
+                    
+                    <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" name="email" id="email" class="form-control" required="">
+                    </div>
+                    
+                    <div class="form-group">
+                      <label for="message">Your Message</label>
+                      <textarea rows="3" id="message" name="message" class="form-control" required=""></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit animated bounce delay-4s learn-btn">
+                      Send Message
+                    </button>
+                  
+                    <div style="display:none;" id="thankyou_message">
+                      <h2><em>Thanks</em> for contacting us! We will get back to you soon!</h2>
+                    </div>
+                  </form>
+                  
+                  <script>
+                    document.getElementById("contactForm").addEventListener("submit", function(event) {
+                      event.preventDefault(); // Prevent the form from submitting the default way
+                  
+                      const form = document.getElementById("contactForm");
+                      const formData = new FormData(form);
+                      const url = "https://script.google.com/macros/s/AKfycby6-Dpwtt34ZFUOIhe-iT5N0kpwjXPVqND7xn0p_JP7-c_yebxgOi_DWjFUfaq7bI7K/exec";
+                      
+                      // Send the form data to the Google Apps Script via POST
+                      fetch(url, {
+                        method: "POST",
+                        body: formData,
+                      })
+                      .then(response => response.json())
+                      .then(data => {
+                        if (data.status === "success") {
+                          // Hide the form
+                          form.style.display = "none";
+                          // Show the thank you message
+                          document.getElementById("thankyou_message").style.display = "block";
+                        } else {
+                          alert("Something went wrong. Please try again.");
+                        }
+                      })
+                      .catch(error => {
+                        alert("There was an error submitting the form. Please try again later.");
+                        console.error("Error:", error);
+                      });
+                    });
+                  </script>
+                  
                 <br>
-                <!-- <div class="feedback"><a href="https://d474b570.nolt.io/">Have any feedback or suggestion?</a></div> -->
 
             </div>
 
